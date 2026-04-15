@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: radar-frontend
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    environment:
+      - VITE_API_URL=/api
+    # Nếu backend chạy trên máy host Windows, giữ nguyên. 
+    # Nếu backend cũng trong docker-compose, thay bằng tên service.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
